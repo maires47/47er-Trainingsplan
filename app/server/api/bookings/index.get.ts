@@ -1,9 +1,9 @@
-import { serverSupabaseClient } from '#supabase/server'
+import { serverSupabaseServiceRole } from '#supabase/server'
 
 // GET /api/bookings?from=2024-01-01&to=2024-01-07
 export default defineEventHandler(async (event) => {
   const { from, to } = getQuery(event)
-  const supabase = await serverSupabaseClient(event)
+  const supabase = serverSupabaseServiceRole(event)
 
   let query = supabase
     .from('bookings')

@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'area_sq muss 0.25, 0.5 oder 1.0 sein' })
   }
 
-  const supabase = useSupabaseClient()
+  const supabase = await serverSupabaseClient(event)
   const start = new Date(body.start_at)
   const end   = new Date(body.end_at)
 

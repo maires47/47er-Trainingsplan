@@ -215,7 +215,7 @@ async function submit() {
     <button
       @click="submit"
       :disabled="loading || !selectedUnitAvailable"
-      class="w-full bg-brand-gold text-brand-dark font-bold py-3 rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity text-sm"
+      class="w-full bg-brand-green text-white font-bold py-3 rounded-xl hover:bg-brand-light disabled:opacity-50 transition-colors text-sm"
     >
       {{ loading ? 'Wird gespeichert…' : 'Buchung bestätigen' }}
     </button>

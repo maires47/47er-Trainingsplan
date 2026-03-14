@@ -2,13 +2,17 @@
   <div class="min-h-screen bg-gray-50 flex flex-col">
     <!-- Navbar -->
     <header class="bg-brand-green shadow-lg sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
         <!-- Logo + Name -->
-        <NuxtLink to="/" class="flex items-center gap-2 group">
-          <span class="text-2xl">⚽</span>
+        <NuxtLink to="/" class="flex items-center gap-3 group">
+          <img
+            src="/logo.jpeg"
+            alt="U-Haag/H Logo"
+            class="h-10 w-10 rounded-full object-cover border-2 border-brand-gold shadow"
+          />
           <div class="flex flex-col leading-none">
-            <span class="text-white font-bold text-sm tracking-wide">FC Lokal</span>
-            <span class="text-brand-gold font-black text-xs tracking-widest uppercase">47allez</span>
+            <span class="text-white font-bold text-sm tracking-wide">U-Haag/H</span>
+            <span class="text-brand-gold font-black text-xs tracking-[0.2em] uppercase">47allez</span>
           </div>
         </NuxtLink>
 
@@ -23,7 +27,7 @@
           </NuxtLink>
           <NuxtLink
             to="/buchen"
-            class="bg-brand-gold text-brand-dark px-3 py-1.5 rounded-md text-sm font-bold transition-opacity hover:opacity-90"
+            class="bg-white text-brand-green px-3 py-1.5 rounded-md text-sm font-bold transition-all hover:bg-brand-gold hover:text-white"
           >
             + Buchen
           </NuxtLink>
@@ -37,8 +41,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark text-white/40 text-center text-xs py-3">
-      47allez &mdash; FC Lokal Trainingsplanung
+    <footer class="bg-brand-dark text-white/40 text-center text-xs py-3 flex items-center justify-center gap-2">
+      <img src="/logo.jpeg" alt="" class="h-4 w-4 rounded-full object-cover opacity-50" />
+      <span>47allez &mdash; U-Haag/H Trainingsplanung seit 1947</span>
     </footer>
   </div>
 </template>

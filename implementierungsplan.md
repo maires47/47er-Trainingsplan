@@ -219,7 +219,57 @@ export default defineEventHandler(async () => {
 
 ---
 
-## 8. UI/UX – Wochenübersicht
+## 8. iCal-Feeds (OÖFV / Fußball Österreich)
+
+> `webcal://` muss für HTTP-Requests zu `https://` konvertiert werden.
+
+| Team | iCal-URL |
+|---|---|
+| Kampfmannschaft | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1910807244019129194-T.ics` |
+| Reserve | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1910807244019129205-T.ics` |
+| U15 | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1930525506990583553-T.ics` |
+| U13 | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928340330911360359-T.ics` |
+| U11 | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928437706325806109-T.ics` |
+| U9 | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928437500167375261-T.ics` |
+| U7 | `https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928438032743321403-T.ics` |
+
+### Sync-Logik (Anpassung)
+
+Da es **mehrere Feeds** gibt, wird der Cron-Job alle parallel abfragen:
+
+```typescript
+// server/cron/sync-ical.ts
+const ICAL_FEEDS = [
+  { team: 'Kampfmannschaft', url: process.env.ICAL_KM },
+  { team: 'Reserve',         url: process.env.ICAL_RESERVE },
+  { team: 'U15',             url: process.env.ICAL_U15 },
+  { team: 'U13',             url: process.env.ICAL_U13 },
+  { team: 'U11',             url: process.env.ICAL_U11 },
+  { team: 'U9',              url: process.env.ICAL_U9 },
+  { team: 'U7',              url: process.env.ICAL_U7 },
+]
+
+// Alle Feeds parallel abrufen & upserten
+const results = await Promise.all(
+  ICAL_FEEDS.map(({ team, url }) => parseIcalFeed(url, team))
+)
+```
+
+### Angepasste Umgebungsvariablen
+
+```env
+ICAL_KM=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1910807244019129194-T.ics
+ICAL_RESERVE=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1910807244019129205-T.ics
+ICAL_U15=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1930525506990583553-T.ics
+ICAL_U13=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928340330911360359-T.ics
+ICAL_U11=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928437706325806109-T.ics
+ICAL_U9=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928437500167375261-T.ics
+ICAL_U7=https://www.fussballoesterreich.at/netzwerk/icalendar/670725461856634215_100092~1928438032743321403-T.ics
+```
+
+---
+
+## 9. UI/UX – Wochenübersicht
 
 ### Design-Prinzipien
 - **Mobile First**: Spalten-Layout, swipeable Woche
@@ -249,7 +299,7 @@ Farbcodierung Trainingsplatz:
 
 ---
 
-## 9. Umgebungsvariablen
+## 10. Umgebungsvariablen
 
 ```env
 # .env.local / Vercel Environment Variables
@@ -262,7 +312,7 @@ ICAL_FEED_URL=https://...      # OÖFV iCal-Feed URL
 
 ---
 
-## 10. Implementierungs-Reihenfolge (Phasen)
+## 11. Implementierungs-Reihenfolge (Phasen)
 
 ### Phase 1 – Fundament (Tag 1–2)
 - [ ] Nuxt 3 Projekt initialisieren (`npx nuxi@latest init 47er-trainingsplan`)
@@ -302,7 +352,7 @@ ICAL_FEED_URL=https://...      # OÖFV iCal-Feed URL
 
 ---
 
-## 11. Offene Punkte / Entscheidungen
+## 12. Offene Punkte / Entscheidungen
 
 | Punkt | Optionen | Empfehlung |
 |---|---|---|

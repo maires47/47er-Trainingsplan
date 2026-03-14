@@ -1,3 +1,5 @@
+import { serverSupabaseClient } from '#supabase/server'
+
 // GET /api/availability?start=...&end=...
 export default defineEventHandler(async (event) => {
   const { start, end } = getQuery(event)

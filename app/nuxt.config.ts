@@ -21,10 +21,7 @@ export default defineNuxtConfig({
     icalU11: process.env.ICAL_U11,
     icalU9: process.env.ICAL_U9,
     icalU7: process.env.ICAL_U7,
-    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY,
-    public: {
-      supabaseUrl: process.env.SUPABASE_URL,
-      supabaseKey: process.env.SUPABASE_KEY,
-    }
+    public: {}
+    // SUPABASE_URL, SUPABASE_KEY, SUPABASE_SERVICE_KEY werden vom @nuxtjs/supabase Modul gelesen
   },
 })

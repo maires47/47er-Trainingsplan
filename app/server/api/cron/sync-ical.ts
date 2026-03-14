@@ -1,3 +1,5 @@
+import { serverSupabaseServiceRole } from '#supabase/server'
+
 // GET /api/cron/sync-ical
 // Wird täglich via Vercel Cron aufgerufen (vercel.json)
 export default defineEventHandler(async (event) => {
@@ -29,7 +31,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Service-Client für Upsert (umgeht RLS)
-  const supabase = useSupabaseService()
+  const supabase = serverSupabaseServiceRole(event)
   const { error, count } = await supabase
     .from('bookings')
     .upsert(allEvents, { onConflict: 'external_uid', count: 'exact' })

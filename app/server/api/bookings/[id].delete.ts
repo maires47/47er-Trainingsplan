@@ -1,3 +1,5 @@
+import { serverSupabaseServiceRole } from '#supabase/server'
+
 // DELETE /api/bookings/:id  (erfordert Admin-PIN im Body)
 export default defineEventHandler(async (event) => {
   const id   = getRouterParam(event, 'id')
@@ -8,8 +10,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, message: 'Falscher Admin-PIN' })
   }
 
-  // Service-Client umgeht RLS für Delete
-  const supabase = useSupabaseService()
+  const supabase = serverSupabaseServiceRole(event)
   const { error } = await supabase.from('bookings').delete().eq('id', id)
 
   if (error) throw createError({ statusCode: 500, message: error.message })

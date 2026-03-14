@@ -1,3 +1,5 @@
+import { serverSupabaseServiceRole } from '#supabase/server'
+
 // PUT /api/bookings/:id  (erfordert Admin-PIN im Body)
 export default defineEventHandler(async (event) => {
   const id   = getRouterParam(event, 'id')
@@ -10,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const { pin: _pin, ...updates } = body
 
-  const supabase = useSupabaseService()
+  const supabase = serverSupabaseServiceRole(event)
   const { data, error } = await supabase
     .from('bookings')
     .update(updates)
